@@ -10,7 +10,7 @@ import Authentication from "./Authentication/Authentication";
 import Features from "./Features/Features";
 import PageNotFound from "./Common/PageNotFound/PageNotFound"
 
-const {Header, Content} = Layout;
+         const {Header, Content} = Layout;
 
 interface IAppProps {
     location?: {
