@@ -32,7 +32,7 @@ var a = "asas";
         
 var v = "asa";
         const path = this.props.location != null ? this.props.location.pathname : '';
-
+        const notinuse = 1;
         return (
             <Layout className="AppLayout">
                 {(path !== "/entry") ? HeaderLayout : null}
