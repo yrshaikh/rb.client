@@ -1,9 +1,6 @@
 import React from "react";
 
-interface IFeaturesProps {
-}
-
-class Features extends React.Component<IFeaturesProps> {
+class Features extends React.Component<{}> {
     public render() {
         return (
             <div className="Features">
