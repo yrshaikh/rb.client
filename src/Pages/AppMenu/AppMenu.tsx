@@ -1,7 +1,7 @@
-import React from "react";
-import "./AppMenu.scss";
 import {Menu} from "antd";
+import React from "react";
 import {Link} from "react-router-dom";
+import "./AppMenu.scss";
 
 const AppMenu: React.FC = () => {
     const selectedMenu = ["1"];
