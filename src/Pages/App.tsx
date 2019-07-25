@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react';
+var a = "asas";
 import "./App.scss";
 import "./AntOverrides.scss";
 import {Switch, Route, Redirect} from "react-router-dom";
