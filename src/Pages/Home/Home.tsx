@@ -1,7 +1,9 @@
 import React from "react";
 import "./Home.scss";
 
-interface IHomeProps {
+      interface IHomeProps
+
+      {
 }
 
 class Home extends React.Component<IHomeProps> {
