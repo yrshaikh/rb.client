@@ -1,0 +1,18 @@
+@import "./Variables.scss";
+
+.ant-layout-header {
+    height: auto;
+    background: $navigation-bar-color;
+    .ant-menu-dark {
+        background: $navigation-bar-color;
+        font-size: 16px;
+
+        .ant-menu-item {
+            color: #fff;
+
+            &-selected {
+                background: #000;
+            }
+        }
+    }
+}
