@@ -5,7 +5,8 @@
     ],
     "jsRules": {},
     "rules": {
-        "ordered-imports": false,
+        "indent": [true, "spaces", 4],
+        "ordered-imports": true,
         "interface-name": [true, "never-prefix"],
         "no-implicit-dependencies": [true, "dev"]
     },

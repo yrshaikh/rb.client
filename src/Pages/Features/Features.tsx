@@ -4,7 +4,7 @@ interface IFeaturesProps {
 }
 
 class Features extends React.Component<IFeaturesProps> {
-    render() {
+    public render() {
         return (
             <div className="Features">
                 <h1>Feature page</h1>
