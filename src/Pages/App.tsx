@@ -1,5 +1,4 @@
 import React from 'react';
-var a = "asas";
 import "./App.scss";
 import "./AntOverrides.scss";
 import {Switch, Route, Redirect} from "react-router-dom";
@@ -28,6 +27,10 @@ class App extends React.Component<IAppProps, any> {
             </Header>
         );
 
+        
+var a = "asas";
+        
+var v = "asa";
         const path = this.props.location != null ? this.props.location.pathname : '';
 
         return (
