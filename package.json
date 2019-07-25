@@ -1,0 +1,21 @@
+{
+  "name": "rb.client",
+  "version": "1.0.0",
+  "description": "Client app for resume builder",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yrshaikh/rb.client.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yrshaikh/rb.client/issues"
+  },
+  "homepage": "https://github.com/yrshaikh/rb.client#readme"
+}
