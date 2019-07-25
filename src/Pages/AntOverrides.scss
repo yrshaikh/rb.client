@@ -1,7 +1,7 @@
 @import "./Variables.scss";
 
 .ant-layout-header {
-    height: auto;
+    height: 70px !important;
     background: $navigation-bar-color;
     .ant-menu-dark {
         background: $navigation-bar-color;
