@@ -1,11 +1,8 @@
-import * as React from 'react';
-import './Authentication.scss';
+import * as React from "react";
+import "./Authentication.scss";
 
-interface IAuthenticationProps {
-}
-
-class Authentication extends React.Component<IAuthenticationProps, any> {
-    render() {
+class Authentication extends React.Component<{}, any> {
+    public render() {
         return (
             <div>
                 Login / Register Page

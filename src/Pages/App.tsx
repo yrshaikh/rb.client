@@ -1,27 +1,28 @@
-import React from 'react';
 import "./App.scss";
-import "./AntOverrides.scss";
-import {Switch, Route, Redirect} from "react-router-dom";
 import {Layout} from "antd";
+import React from "react";
+import {Redirect, Route, Switch} from "react-router-d
+import "./AntOverrides.scss";
+import "./App.scss";
 import AppMenu from "./AppMenu/AppMenu";
+import Authentication from "./Authentication/Authentication";
+import PageNotFound from "./Common/PageNotFound/PageNotFound";
+import Features from "./Features/Features";
 // components to be routed
 import Home from "./Home/Home";
-import Authentication from "./Authentication/Authentication";
-import Features from "./Features/Features";
-import PageNotFound from "./Common/PageNotFound/PageNotFound"
 
          const {Header, Content} = Layout;
 
 interface IAppProps {
     location?: {
-        pathname: string
-    }
+        pathname: string,
+    };
 }
 
 class App extends React.Component<IAppProps, any> {
-    render() {
+    public render() {
         const HeaderLayout = (
-            <Header>
+            <Header className="AppLayout__Header">
                 <div className="AppLayout__Logo"/>
                 <AppMenu/>
             </Header>
@@ -63,7 +64,7 @@ var v = "asa";
                 </Content>
             </Layout>
         );
-    };
+    }
 }
 
 export default App;
