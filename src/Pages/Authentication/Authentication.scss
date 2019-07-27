@@ -36,6 +36,10 @@
 
         &__TextBox {
             margin-bottom: 0;
+
+            .ant-input {
+                font-size: 12px;
+            }
         }
 
     }
