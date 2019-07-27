@@ -1,11 +1,21 @@
+import {Col, Row} from "antd";
 import * as React from "react";
 import "./Authentication.scss";
+import LoginPage from "./LoginPage";
+import RegisterPage from "./RegisterPage";
 
 class Authentication extends React.Component<{}, any> {
     public render() {
         return (
             <div>
-                Login / Register Page
+                <Row>
+                    <Col span={12}>
+                        <LoginPage/>
+                    </Col>
+                    <Col span={12}>
+                        <RegisterPage/>
+                    </Col>
+                </Row>
             </div>
         );
     }

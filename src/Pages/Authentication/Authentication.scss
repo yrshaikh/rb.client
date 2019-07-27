@@ -1,0 +1,29 @@
+@import "./../Variables.scss";
+
+.Authentication {
+    padding: 15px;
+    margin-top: 50px;
+
+    &__Header {
+        font-size: 32px;
+    }
+
+    &__Description {
+        font-size: 14px;
+    }
+
+    &__Form {
+        width: 300px;
+        font-size: 18px;
+        &__Button {
+            font-size: 16px;
+            line-height: 24px;
+            padding: 4px 16px;
+            height: 40px;
+            background: $button-color;
+            border: 0;
+            color: white;
+            width: 100%;
+        }
+    }
+}
