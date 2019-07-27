@@ -12,16 +12,16 @@ abstract class BaseAuthentication extends React.Component<{}, any> {
                 <p className="Authentication__Description">{this.GetDescriptionText()}</p>
                 <Form className="Authentication__Form">
                     {this.getFullNameFormItem()}
-                    <Form.Item>
+                    <Form.Item className="Authentication__Form__Row">
                         <Input
                             className="Authentication__Form__TextBox"
                             prefix={<Icon type="user"/>}
                             placeholder="Username"
                         />
                     </Form.Item>
-                    <Form.Item>
+                    <Form.Item className="Authentication__Form__Row">
                         <Input
-                            className="textbox"
+                            className="Authentication__Form__TextBox"
                             prefix={<Icon type="lock"/>}
                             placeholder="Password"
                             type="password"
@@ -51,7 +51,7 @@ abstract class BaseAuthentication extends React.Component<{}, any> {
     private getFullNameFormItem() {
         return this.ShouldShowFullNameField() ?
             (
-                <Form.Item>
+                <Form.Item className="Authentication__Form__Row">
                     <Input
                         prefix={<Icon type="user"/>}
                         placeholder="Username"

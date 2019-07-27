@@ -6,16 +6,19 @@
 
     &__Header {
         font-size: 32px;
+        margin-bottom: 0;
     }
 
     &__Description {
-        font-size: 14px;
+        font-size: 12px;
     }
 
     &__Form {
         width: 300px;
         font-size: 18px;
+
         &__Button {
+            margin-top: 10px;
             font-size: 16px;
             line-height: 24px;
             padding: 4px 16px;
@@ -25,5 +28,14 @@
             color: white;
             width: 100%;
         }
+
+        &__Row {
+            margin-bottom: 0;
+        }
+
+        &__TextBox {
+            margin-bottom: 0;
+        }
+
     }
 }
