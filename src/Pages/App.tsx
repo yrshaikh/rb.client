@@ -21,7 +21,7 @@ interface IAppProps {
 class App extends React.Component<IAppProps, any> {
     public render() {
         const HeaderLayout = (
-            <Header>
+            <Header className="AppLayout__Header">
                 <div className="AppLayout__Logo"/>
                 <AppMenu/>
             </Header>
