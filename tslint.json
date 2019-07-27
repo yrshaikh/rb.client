@@ -6,7 +6,15 @@
     "jsRules": {},
     "rules": {
         "indent": [true, "spaces", 4],
-        "ordered-imports": true,
+        "max-line-length": [true, 200],
+        "variable-name": [true, "allow-pascal-case"],
+        "ordered-imports": [
+            true,
+            {
+                "import-sources-order": "lowercase-last",
+                "named-imports-order": "lowercase-first"
+            }
+        ],
         "no-implicit-dependencies": [true, "dev"]
     },
     "rulesDirectory": []

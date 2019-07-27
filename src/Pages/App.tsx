@@ -31,7 +31,7 @@ class App extends React.Component<IAppProps, any> {
 
         return (
             <Layout className="AppLayout">
-                {(path !== "/entry") ? HeaderLayout : null}
+                {(path !== "/authentication") ? HeaderLayout : null}
                 <Content className="AppLayout__Content">
                     <Switch>
                         <Route
