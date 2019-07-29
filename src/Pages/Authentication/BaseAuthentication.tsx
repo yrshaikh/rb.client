@@ -1,11 +1,13 @@
 import {Button, Form, Icon, Input} from "antd";
 import * as React from "react";
+import {AuthenticationService} from "../Services/Authentication/AuthenticationService";
 import "./Authentication.scss";
 import {IFormProps} from "./types/IFormProps";
 import {IFormState} from "./types/IFormState";
 
 abstract class BaseAuthentication extends React.Component<IFormProps, IFormState> {
 
+    private readonly authenticationService: AuthenticationService;
     constructor(props: IFormProps) {
         super(props);
         this.state = {
@@ -14,6 +16,8 @@ abstract class BaseAuthentication extends React.Component<IFormProps, IFormState
             Password: "",
         };
         this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.authenticationService = new AuthenticationService();
     }
 
     protected renderForm(): JSX.Element {
@@ -46,7 +50,8 @@ abstract class BaseAuthentication extends React.Component<IFormProps, IFormState
                         <Button
                             type="primary"
                             htmlType="submit"
-                            className="Authentication__Form__Button">
+                            className="Authentication__Form__Button"
+                            onClick={this.onSubmit}>
                             {this.GetButtonText()}
                         </Button>
                     </Form.Item>
@@ -77,11 +82,11 @@ abstract class BaseAuthentication extends React.Component<IFormProps, IFormState
             ) : null;
     }
 
-    private onChange(e: any) {
-        const value = e.target.value;
+    private onChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const value = e.currentTarget.value;
         if (!value) { return; }
 
-        switch (e.target.name) {
+        switch (e.currentTarget.name) {
             case "full-name": {
                 this.setState(() => ({
                     FullName: value,
@@ -103,6 +108,14 @@ abstract class BaseAuthentication extends React.Component<IFormProps, IFormState
             default:
                 break;
         }
+    }
+
+    private onSubmit(e: React.SyntheticEvent<HTMLElement>) {
+        e.preventDefault();
+        this.authenticationService.IsValid(this.state.Email, this.state.Password)
+            .then((isValid: boolean) => {
+                console.log("is valid", isValid);
+            });
     }
 }
 

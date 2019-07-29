@@ -15,7 +15,8 @@
                 "named-imports-order": "lowercase-first"
             }
         ],
-        "no-implicit-dependencies": [true, "dev"]
+        "no-implicit-dependencies": [true, "dev"],
+        "no-any": true
     },
     "rulesDirectory": []
 }
