@@ -114,6 +114,7 @@ abstract class BaseAuthentication extends React.Component<IFormProps, IFormState
         e.preventDefault();
         this.authenticationService.IsValid(this.state.Email, this.state.Password)
             .then((isValid: boolean) => {
+                // tslint:disable-next-line:no-console
                 console.log("is valid", isValid);
             });
     }
