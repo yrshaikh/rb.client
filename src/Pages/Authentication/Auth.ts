@@ -1,8 +1,8 @@
+/* tslint:disable:no-console */
 import auth0, { Auth0DecodedHash, WebAuth } from "auth0-js";
 
 export default class AuthV2 {
   public static setSession(authResult: Auth0DecodedHash) {
-    // tslint:disable-next-line:no-console
     console.log(authResult);
     // set the time that the access token will expire
     const expiresAt = JSON.stringify(
@@ -42,7 +42,6 @@ export default class AuthV2 {
       } else if (err) {
         AuthV2.historyField.push("/");
         alert(`Error: ${err.error}. Check the console for further details.`);
-        // tslint:disable-next-line:no-console
         console.log(err);
       }
     });
