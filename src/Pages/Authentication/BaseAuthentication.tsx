@@ -1,9 +1,24 @@
 import {Button, Form, Icon, Input} from "antd";
 import * as React from "react";
+import {AuthenticationService} from "../Services/Authentication/AuthenticationService";
 import "./Authentication.scss";
+import {IFormProps} from "./types/IFormProps";
+import {IFormState} from "./types/IFormState";
 
-abstract class BaseAuthentication extends React.Component<{}, any> {
-    private baseClassName: string = "";
+abstract class BaseAuthentication extends React.Component<IFormProps, IFormState> {
+
+    private readonly authenticationService: AuthenticationService;
+    constructor(props: IFormProps) {
+        super(props);
+        this.state = {
+            Email: "",
+            FullName: "",
+            Password: "",
+        };
+        this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.authenticationService = new AuthenticationService();
+    }
 
     protected renderForm(): JSX.Element {
         return (
@@ -14,24 +29,29 @@ abstract class BaseAuthentication extends React.Component<{}, any> {
                     {this.getFullNameFormItem()}
                     <Form.Item className="Authentication__Form__Row">
                         <Input
+                            name="email"
                             className="Authentication__Form__TextBox"
                             prefix={<Icon type="user"/>}
-                            placeholder="Username"
+                            placeholder="Email"
+                            onChange={this.onChange}
                         />
                     </Form.Item>
                     <Form.Item className="Authentication__Form__Row">
                         <Input
+                            name="password"
                             className="Authentication__Form__TextBox"
                             prefix={<Icon type="lock"/>}
                             placeholder="Password"
                             type="password"
+                            onChange={this.onChange}
                         />
                     </Form.Item>
                     <Form.Item>
                         <Button
                             type="primary"
                             htmlType="submit"
-                            className="Authentication__Form__Button">
+                            className="Authentication__Form__Button"
+                            onClick={this.onSubmit}>
                             {this.GetButtonText()}
                         </Button>
                     </Form.Item>
@@ -53,11 +73,50 @@ abstract class BaseAuthentication extends React.Component<{}, any> {
             (
                 <Form.Item className="Authentication__Form__Row">
                     <Input
+                        name="full-name"
                         prefix={<Icon type="user"/>}
-                        placeholder="Username"
+                        placeholder="Full Name"
+                        onChange={this.onChange}
                     />
                 </Form.Item>
             ) : null;
+    }
+
+    private onChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const value = e.currentTarget.value;
+        if (!value) { return; }
+
+        switch (e.currentTarget.name) {
+            case "full-name": {
+                this.setState(() => ({
+                    FullName: value,
+                }));
+                break;
+            }
+            case "email": {
+                this.setState(() => ({
+                    Email: value,
+                }));
+                break;
+            }
+            case "password": {
+                this.setState(() => ({
+                    Password: value,
+                }));
+                break;
+            }
+            default:
+                break;
+        }
+    }
+
+    private onSubmit(e: React.SyntheticEvent<HTMLElement>) {
+        e.preventDefault();
+        this.authenticationService.IsValid(this.state.Email, this.state.Password)
+            .then((isValid: boolean) => {
+                // tslint:disable-next-line:no-console
+                console.log("is valid", isValid);
+            });
     }
 }
 

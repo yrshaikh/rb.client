@@ -18,6 +18,7 @@ interface IAppProps {
     };
 }
 
+// tslint:disable-next-line:no-any
 class App extends React.Component<IAppProps, any> {
     public render() {
         const HeaderLayout = (

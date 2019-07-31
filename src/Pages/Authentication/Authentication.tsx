@@ -4,6 +4,7 @@ import "./Authentication.scss";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
 
+// tslint:disable-next-line:no-any
 class Authentication extends React.Component<{}, any> {
     public render() {
         return (
