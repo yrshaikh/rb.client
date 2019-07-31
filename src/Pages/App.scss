@@ -1,14 +1,14 @@
 @import "~antd/dist/antd.css";
 
 .AppLayout {
-    background: #fff;
-    color: #000;
+  background: #fff;
+  color: #000;
 
-    &__Header {
-        height: 70px;
-    }
+  &__Header {
+    height: 70px;
+  }
 
-    &__Content {
-        padding: 0 50px;
-    }
+  &__Content {
+    padding: 0 50px;
+  }
 }
