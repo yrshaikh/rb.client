@@ -4,12 +4,13 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import "./AntOverrides.scss";
 import "./App.scss";
 import AppMenu from "./AppMenu/AppMenu";
-import AuthV2 from "./Authentication/Auth";
+import Auth from "./Authentication/Auth";
 import Callback from "./Authentication/Callback";
 import PageNotFound from "./Common/PageNotFound/PageNotFound";
 import Features from "./Features/Features";
 // components to be routed
 import Home from "./Home/Home";
+import Profile from "./Profile/Profile";
 
 const { Header, Content } = Layout;
 
@@ -24,28 +25,29 @@ interface IAppProps {
 class App extends React.Component<IAppProps, {}> {
   constructor(props: IAppProps) {
     super(props);
-    AuthV2.init(this.props.history as History);
+    Auth.init(this.props.history as History);
   }
   public render() {
-    const HeaderLayout = (
+    const CommonHeader = (
       <Header className="AppLayout__Header">
         <div className="AppLayout__Logo" />
-        <AppMenu />
+        <AppMenu isAuthenticated={Auth.isAuthenticated()} />
       </Header>
     );
 
-    const path =
-      this.props.location != null ? this.props.location.pathname : "";
-
     return (
       <Layout className="AppLayout">
-        {path !== "/authentication" ? HeaderLayout : null}
+        {CommonHeader}
         <Content className="AppLayout__Content">
           <Switch>
             <Route exact path="/" render={() => <Home />} />
             <Route path="/features" render={() => <Features />} />
+            <Route path="/profile" render={() => <Profile />} />
             <Route path="/pagenotfound" render={() => <PageNotFound />} />
-            <Route path="/callback" render={() => <Callback urlHash={this.props.location.hash} />} />
+            <Route
+              path="/callback"
+              render={() => <Callback urlHash={this.props.location.hash} />}
+            />
             <Redirect from="/**" to="/pagenotfound" />
           </Switch>
         </Content>

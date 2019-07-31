@@ -1,15 +1,32 @@
 import { Menu } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
-import AuthV2 from "../Authentication/Auth";
+import Auth from "../Authentication/Auth";
 import "./AppMenu.scss";
 
 interface IAppMenuProps {
+  isAuthenticated: boolean;
 }
 
 class AppMenu extends React.Component<IAppMenuProps, {}> {
   public render() {
     const selectedMenu = ["1"];
+
+    const renderLoginButton = (
+      <Menu.Item
+        className="AppMenu__Item--right AppMenu__Item--callToAction"
+        key="3"
+      >
+        <span onClick={Auth.login}>Log In</span>
+      </Menu.Item>
+    );
+
+    const renderAccountSettings = (
+      <Menu.Item className="AppMenu__Item--right" key="99">
+        <Link to="/profile">Account Settings</Link>
+      </Menu.Item>
+    );
+
     return (
       <Menu
         className="AppMenu"
@@ -23,16 +40,7 @@ class AppMenu extends React.Component<IAppMenuProps, {}> {
         <Menu.Item key="2">
           <Link to="/features">Features</Link>
         </Menu.Item>
-        <Menu.Item
-          className="AppMenu__Item--right AppMenu__Item--callToAction"
-          key="3"
-        >
-          {AuthV2.isAuthenticated() ? (
-            <Link to="/">Hola!</Link>
-          ) : (
-            <span onClick={AuthV2.login}>Log In</span>
-          )}
-        </Menu.Item>
+        {this.props.isAuthenticated ? renderAccountSettings : renderLoginButton}
       </Menu>
     );
   }

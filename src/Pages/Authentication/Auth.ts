@@ -1,7 +1,7 @@
 /* tslint:disable:no-console */
 import auth0, { Auth0DecodedHash, WebAuth } from "auth0-js";
 
-export default class AuthV2 {
+export default class Auth {
   public static setSession(authResult: Auth0DecodedHash) {
     console.log(authResult);
     // set the time that the access token will expire
@@ -15,8 +15,8 @@ export default class AuthV2 {
   }
 
   public static init(history: History) {
-    AuthV2.historyField = history;
-    AuthV2.authField = new auth0.WebAuth({
+    Auth.historyField = history;
+    Auth.authField = new auth0.WebAuth({
       clientID: process.env.REACT_APP_AUTH0_CLIENT_ID as string,
       domain: process.env.REACT_APP_AUTH0_DOMAIN as string,
       redirectUri: process.env.REACT_APP_AUTH0_CALLBACK_URL,
@@ -26,7 +26,7 @@ export default class AuthV2 {
   }
 
   public static login() {
-    AuthV2.authField.authorize();
+    Auth.authField.authorize();
   }
 
   public static isAuthenticated(): boolean {
@@ -35,12 +35,12 @@ export default class AuthV2 {
   }
 
   public static handleAuthentication() {
-    AuthV2.authField.parseHash((err, authResult) => {
+    Auth.authField.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
-        AuthV2.setSession(authResult);
-        AuthV2.historyField.push("/");
+        Auth.setSession(authResult);
+        Auth.historyField.push("/");
       } else if (err) {
-        AuthV2.historyField.push("/");
+        Auth.historyField.push("/");
         alert(`Error: ${err.error}. Check the console for further details.`);
         console.log(err);
       }
