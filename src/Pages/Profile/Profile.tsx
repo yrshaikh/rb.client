@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import Auth from "../Authentication/Auth";
 
-interface IProps {}
+interface IProps {
+  auth: Auth;
+}
 
 interface IState {
+  // tslint:disable-next-line:no-any
   profile: any;
   error: string;
 }
@@ -22,7 +25,8 @@ class Profile extends Component<IProps, IState> {
   }
 
   public loadUserProfile() {
-    Auth.getProfile((profile: any, error: string) =>
+    // tslint:disable-next-line:no-any
+    this.props.auth.getProfile((error: string, profile: any) =>
       this.setState({ profile, error })
     );
   }
@@ -30,14 +34,14 @@ class Profile extends Component<IProps, IState> {
   public render() {
     const { profile } = this.state;
     if (!profile) {
-      return null;
+      return <p>loading...</p>;
     }
     return (
       <>
         <h1>Profile</h1>
         <p>{profile.nickname}</p>
         <img
-          style={{ maxWidth: 50, maxHeight: 50 }}
+          style={{ maxWidth: 150, maxHeight: 150 }}
           src={profile.picture}
           alt="profile pic"
         />

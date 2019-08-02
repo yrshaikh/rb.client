@@ -6,7 +6,13 @@
       float: right;
     }
     &--callToAction {
+      text-align: center;
+      cursor: pointer;
+    }
+    &--clickable {
       background: $button-color;
+      padding: 27px 15px;
+
       &:hover {
         background: $button-color-onhover !important;
       }

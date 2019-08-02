@@ -23,18 +23,18 @@ interface IAppProps {
 }
 
 class App extends React.Component<IAppProps, {}> {
+  private readonly auth: Auth;
   constructor(props: IAppProps) {
     super(props);
-    Auth.init(this.props.history as History);
+    this.auth = new Auth(this.props.history as History);
   }
   public render() {
     const CommonHeader = (
       <Header className="AppLayout__Header">
         <div className="AppLayout__Logo" />
-        <AppMenu isAuthenticated={Auth.isAuthenticated()} />
+        <AppMenu auth={this.auth} />
       </Header>
     );
-
     return (
       <Layout className="AppLayout">
         {CommonHeader}
@@ -42,11 +42,14 @@ class App extends React.Component<IAppProps, {}> {
           <Switch>
             <Route exact path="/" render={() => <Home />} />
             <Route path="/features" render={() => <Features />} />
-            <Route path="/profile" render={() => <Profile />} />
+            <Route
+              path="/profile"
+              render={() => <Profile auth={this.auth} />}
+            />
             <Route path="/pagenotfound" render={() => <PageNotFound />} />
             <Route
               path="/callback"
-              render={() => <Callback urlHash={this.props.location.hash} />}
+              render={() => <Callback urlHash={this.props.location.hash} auth={this.auth} />}
             />
             <Redirect from="/**" to="/pagenotfound" />
           </Switch>

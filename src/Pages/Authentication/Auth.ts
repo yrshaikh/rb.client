@@ -1,8 +1,13 @@
 import auth0, { Auth0DecodedHash, WebAuth } from "auth0-js";
 
 export default class Auth {
-  public static init(history: History) {
-    Auth.historyField = history;
+  private static authField: WebAuth;
+  // tslint:disable-next-line:no-any
+  private historyField: any;
+  // tslint:disable-next-line:no-any
+  private userProfile: any;
+  public constructor(history: History) {
+    this.historyField = history;
     Auth.authField = new auth0.WebAuth({
       clientID: process.env.REACT_APP_AUTH0_CLIENT_ID as string,
       domain: process.env.REACT_APP_AUTH0_DOMAIN as string,
@@ -10,43 +15,43 @@ export default class Auth {
       responseType: "token id_token",
       scope: "openid profile email"
     });
-    Auth.userProfile = null;
+    this.userProfile = null;
   }
 
-  public static login() {
+  public login() {
     Auth.authField.authorize();
   }
 
-  public static logout(): void {
+  public logout(): void {
     localStorage.removeItem("access_token");
     localStorage.removeItem("id_token");
     localStorage.removeItem("expires_at");
-    Auth.userProfile = null;
+    // this.userProfile = null;
     Auth.authField.logout({
       clientID: process.env.REACT_APP_AUTH0_CLIENT_ID,
       returnTo: "http://localhost:3000"
     });
   }
 
-  public static isAuthenticated(): boolean {
+  public isAuthenticated(): boolean {
     const expiresAt = JSON.parse(localStorage.getItem("expires_at") as string);
     return new Date().getTime() < expiresAt;
   }
 
-  public static handleAuthentication() {
+  public handleAuthentication() {
     Auth.authField.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
-        Auth.setSession(authResult);
-        Auth.historyField.push("/");
+        this.setSession(authResult);
+        this.historyField.push("/");
       } else if (err) {
-        Auth.historyField.push("/");
+        this.historyField.push("/");
         alert(`Error: ${err.error}. Check the console for further details.`);
         // console.log(err);
       }
     });
   }
 
-  public static setSession(authResult: Auth0DecodedHash) {
+  public setSession(authResult: Auth0DecodedHash) {
     // console.log(authResult);
     // set the time that the access token will expire
     const expiresAt = JSON.stringify(
@@ -58,7 +63,7 @@ export default class Auth {
     localStorage.setItem("expires_at", expiresAt);
   }
 
-  public static getAccessToken(): string {
+  public getAccessToken(): string {
     const accessToken = localStorage.getItem("access_token");
     if (!accessToken) {
       throw new Error("No access token found.");
@@ -67,21 +72,15 @@ export default class Auth {
   }
 
   // tslint:disable-next-line:no-any
-  public static getProfile(cb: any): void {
-    if (Auth.userProfile) {
-      return cb(Auth.userProfile);
+  public getProfile(callback: any): void {
+    if (this.userProfile) {
+      return callback(null, this.userProfile);
     }
     Auth.authField.client.userInfo(this.getAccessToken(), (err, profile) => {
       if (profile) {
-        Auth.userProfile = profile;
+        this.userProfile = profile;
       }
-      cb(profile, err);
+      callback(err, profile);
     });
   }
-
-  // tslint:disable-next-line:no-any
-  private static historyField: any;
-  private static authField: WebAuth;
-  // tslint:disable-next-line:no-any
-  private static userProfile: any;
 }

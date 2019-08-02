@@ -5,11 +5,18 @@ import Auth from "../Authentication/Auth";
 import "./AppMenu.scss";
 
 interface IAppMenuProps {
-  isAuthenticated: boolean;
+  auth: Auth;
 }
 
 class AppMenu extends React.Component<IAppMenuProps, {}> {
   public render() {
+    return this.props.auth.isAuthenticated()
+      ? this.renderAuthenticatedNavBar()
+      : this.renderNavBar();
+  }
+
+  private renderNavBar() {
+    const { login } = this.props.auth;
     return (
       <Menu
         className="AppMenu"
@@ -23,34 +30,41 @@ class AppMenu extends React.Component<IAppMenuProps, {}> {
         <Menu.Item key="2">
           <Link to="/features">Features</Link>
         </Menu.Item>
-        {this.renderAuthenticationButtons()}
-      </Menu>
-    );
-  }
-  private renderAuthenticationButtons(): JSX.Element {
-    return (
-      <>
         <Menu.Item
           className="AppMenu__Item--right AppMenu__Item--callToAction"
           key="3"
         >
-          <span onClick={Auth.isAuthenticated() ? Auth.logout : Auth.login}>
-            {Auth.isAuthenticated() ? "Log Out" : "Log In"}{" "}
+          <span className="AppMenu__Item--clickable" onClick={login}>
+            Log In / Create an account
           </span>
         </Menu.Item>
-        {this.renderProfileLink()}
-      </>
+      </Menu>
     );
   }
-
-  private renderProfileLink(): JSX.Element {
-    if (!Auth.isAuthenticated()) {
-      return <></>;
-    }
+  private renderAuthenticatedNavBar() {
+    const { logout } = this.props.auth;
     return (
-      <Menu.Item className="AppMenu__Item--right" key="99">
-        <Link to="/profile">Account Settings</Link>
-      </Menu.Item>
+      <Menu
+        className="AppMenu"
+        theme="dark"
+        mode="horizontal"
+        defaultSelectedKeys={["1"]}
+      >
+        <Menu.Item key="1">
+          <Link to="/">Home</Link>
+        </Menu.Item>
+        <Menu.Item key="2">
+          <Link to="/profile">Profile</Link>
+        </Menu.Item>
+        <Menu.Item
+          className="AppMenu__Item--right AppMenu__Item--callToAction"
+          key="3"
+        >
+          <span className="AppMenu__Item--clickable" onClick={logout}>
+            Log Out
+          </span>
+        </Menu.Item>
+      </Menu>
     );
   }
 }

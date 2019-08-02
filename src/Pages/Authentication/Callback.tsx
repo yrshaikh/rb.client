@@ -1,14 +1,15 @@
 import React, { Component } from "react";
-import AuthV2 from "../Authentication/Auth";
+import Auth from "../Authentication/Auth";
 
 interface IProps {
   urlHash: string;
+  auth: Auth;
 }
 
 class Callback extends Component<IProps> {
   public componentDidMount() {
     if (/access_token|id_token|error/.test(this.props.urlHash)) {
-      AuthV2.handleAuthentication();
+      this.props.auth.handleAuthentication();
     } else {
       throw new Error("Invalid callback URL.");
     }
