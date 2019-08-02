@@ -6,7 +6,6 @@ interface IProps {
 }
 
 interface IState {
-  // tslint:disable-next-line:no-any
   profile: any;
   error: string;
 }
@@ -20,18 +19,17 @@ class Profile extends Component<IProps, IState> {
     };
   }
 
-  public componentDidMount() {
+  public componentDidMount(): void {
     this.loadUserProfile();
   }
 
-  public loadUserProfile() {
-    // tslint:disable-next-line:no-any
+  public loadUserProfile(): void {
     this.props.auth.getProfile((error: string, profile: any) =>
       this.setState({ profile, error })
     );
   }
 
-  public render() {
+  public render(): JSX.Element {
     const { profile } = this.state;
     if (!profile) {
       return <p>loading...</p>;

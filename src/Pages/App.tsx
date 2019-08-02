@@ -28,8 +28,8 @@ class App extends React.Component<IAppProps, {}> {
     super(props);
     this.auth = new Auth(this.props.history as History);
   }
-  public render() {
-    const CommonHeader = (
+  public render(): JSX.Element {
+    const CommonHeader: JSX.Element = (
       <Header className="AppLayout__Header">
         <div className="AppLayout__Logo" />
         <AppMenu auth={this.auth} />
@@ -40,16 +40,16 @@ class App extends React.Component<IAppProps, {}> {
         {CommonHeader}
         <Content className="AppLayout__Content">
           <Switch>
-            <Route exact path="/" render={() => <Home />} />
-            <Route path="/features" render={() => <Features />} />
+            <Route exact path="/" render={(): JSX.Element => <Home />} />
+            <Route path="/features" render={(): JSX.Element => <Features />} />
             <Route
               path="/profile"
-              render={() => <Profile auth={this.auth} />}
+              render={(): JSX.Element => <Profile auth={this.auth} />}
             />
-            <Route path="/pagenotfound" render={() => <PageNotFound />} />
+            <Route path="/pagenotfound" render={(): JSX.Element => <PageNotFound />} />
             <Route
               path="/callback"
-              render={() => <Callback urlHash={this.props.location.hash} auth={this.auth} />}
+              render={(): JSX.Element => <Callback urlHash={this.props.location.hash} auth={this.auth} />}
             />
             <Redirect from="/**" to="/pagenotfound" />
           </Switch>

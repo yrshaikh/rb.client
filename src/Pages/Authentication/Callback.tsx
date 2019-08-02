@@ -7,7 +7,7 @@ interface IProps {
 }
 
 class Callback extends Component<IProps> {
-  public componentDidMount() {
+  public componentDidMount(): void {
     if (/access_token|id_token|error/.test(this.props.urlHash)) {
       this.props.auth.handleAuthentication();
     } else {
@@ -15,7 +15,7 @@ class Callback extends Component<IProps> {
     }
   }
 
-  public render() {
+  public render(): JSX.Element {
     return <div>Authenticating...</div>;
   }
 }

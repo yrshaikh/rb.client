@@ -9,13 +9,13 @@ interface IAppMenuProps {
 }
 
 class AppMenu extends React.Component<IAppMenuProps, {}> {
-  public render() {
+  public render(): JSX.Element {
     return this.props.auth.isAuthenticated()
       ? this.renderAuthenticatedNavBar()
       : this.renderNavBar();
   }
 
-  private renderNavBar() {
+  private renderNavBar(): JSX.Element {
     const { login } = this.props.auth;
     return (
       <Menu
@@ -41,7 +41,7 @@ class AppMenu extends React.Component<IAppMenuProps, {}> {
       </Menu>
     );
   }
-  private renderAuthenticatedNavBar() {
+  private renderAuthenticatedNavBar(): JSX.Element {
     const { logout } = this.props.auth;
     return (
       <Menu

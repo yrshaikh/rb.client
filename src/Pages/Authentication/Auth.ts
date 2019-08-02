@@ -2,10 +2,9 @@ import auth0, { Auth0DecodedHash, WebAuth } from "auth0-js";
 
 export default class Auth {
   private static authField: WebAuth;
-  // tslint:disable-next-line:no-any
   private historyField: any;
-  // tslint:disable-next-line:no-any
   private userProfile: any;
+
   public constructor(history: History) {
     this.historyField = history;
     Auth.authField = new auth0.WebAuth({
@@ -18,7 +17,7 @@ export default class Auth {
     this.userProfile = null;
   }
 
-  public login() {
+  public login(): void {
     Auth.authField.authorize();
   }
 
@@ -34,12 +33,14 @@ export default class Auth {
   }
 
   public isAuthenticated(): boolean {
-    const expiresAt = JSON.parse(localStorage.getItem("expires_at") as string);
+    const expiresAt: any = JSON.parse(localStorage.getItem(
+      "expires_at"
+    ) as string);
     return new Date().getTime() < expiresAt;
   }
 
-  public handleAuthentication() {
-    Auth.authField.parseHash((err, authResult) => {
+  public handleAuthentication(): void {
+    Auth.authField.parseHash((err: any, authResult: any) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
         this.historyField.push("/");
@@ -51,10 +52,10 @@ export default class Auth {
     });
   }
 
-  public setSession(authResult: Auth0DecodedHash) {
+  public setSession(authResult: Auth0DecodedHash): void {
     // console.log(authResult);
     // set the time that the access token will expire
-    const expiresAt = JSON.stringify(
+    const expiresAt: any = JSON.stringify(
       (authResult.expiresIn as number) * 1000 + new Date().getTime()
     );
 
@@ -64,23 +65,24 @@ export default class Auth {
   }
 
   public getAccessToken(): string {
-    const accessToken = localStorage.getItem("access_token");
+    const accessToken: any = localStorage.getItem("access_token");
     if (!accessToken) {
       throw new Error("No access token found.");
     }
     return accessToken;
   }
-
-  // tslint:disable-next-line:no-any
   public getProfile(callback: any): void {
     if (this.userProfile) {
       return callback(null, this.userProfile);
     }
-    Auth.authField.client.userInfo(this.getAccessToken(), (err, profile) => {
-      if (profile) {
-        this.userProfile = profile;
+    Auth.authField.client.userInfo(
+      this.getAccessToken(),
+      (err: any, profile: any) => {
+        if (profile) {
+          this.userProfile = profile;
+        }
+        callback(err, profile);
       }
-      callback(err, profile);
-    });
+    );
   }
 }
