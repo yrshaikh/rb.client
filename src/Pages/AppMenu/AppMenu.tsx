@@ -10,29 +10,12 @@ interface IAppMenuProps {
 
 class AppMenu extends React.Component<IAppMenuProps, {}> {
   public render() {
-    const selectedMenu = ["1"];
-
-    const renderLoginButton = (
-      <Menu.Item
-        className="AppMenu__Item--right AppMenu__Item--callToAction"
-        key="3"
-      >
-        <span onClick={Auth.login}>Log In</span>
-      </Menu.Item>
-    );
-
-    const renderAccountSettings = (
-      <Menu.Item className="AppMenu__Item--right" key="99">
-        <Link to="/profile">Account Settings</Link>
-      </Menu.Item>
-    );
-
     return (
       <Menu
         className="AppMenu"
         theme="dark"
         mode="horizontal"
-        defaultSelectedKeys={selectedMenu}
+        defaultSelectedKeys={["1"]}
       >
         <Menu.Item key="1">
           <Link to="/">Home</Link>
@@ -40,8 +23,34 @@ class AppMenu extends React.Component<IAppMenuProps, {}> {
         <Menu.Item key="2">
           <Link to="/features">Features</Link>
         </Menu.Item>
-        {this.props.isAuthenticated ? renderAccountSettings : renderLoginButton}
+        {this.renderAuthenticationButtons()}
       </Menu>
+    );
+  }
+  private renderAuthenticationButtons(): JSX.Element {
+    return (
+      <>
+        <Menu.Item
+          className="AppMenu__Item--right AppMenu__Item--callToAction"
+          key="3"
+        >
+          <span onClick={Auth.isAuthenticated() ? Auth.logout : Auth.login}>
+            {Auth.isAuthenticated() ? "Log Out" : "Log In"}{" "}
+          </span>
+        </Menu.Item>
+        {this.renderProfileLink()}
+      </>
+    );
+  }
+
+  private renderProfileLink(): JSX.Element {
+    if (!Auth.isAuthenticated()) {
+      return <></>;
+    }
+    return (
+      <Menu.Item className="AppMenu__Item--right" key="99">
+        <Link to="/profile">Account Settings</Link>
+      </Menu.Item>
     );
   }
 }
