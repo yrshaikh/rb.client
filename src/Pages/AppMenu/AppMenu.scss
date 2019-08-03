@@ -8,15 +8,9 @@
     &--callToAction {
       text-align: center;
       cursor: pointer;
-      padding: 0px;
-    }
-    &--clickable {
+      padding: 0px 15px;
       background: $button-color;
-      padding: 27px 15px;
-
-      &:hover {
-        background: $button-color-onhover !important;
-      }
+      background: $button-color-onhover !important;
     }
   }
 }

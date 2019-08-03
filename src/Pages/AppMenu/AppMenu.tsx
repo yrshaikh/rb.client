@@ -1,4 +1,4 @@
-import {Icon, Menu} from "antd";
+import { Icon, Menu } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 import Auth from "../Authentication/Auth";
@@ -35,10 +35,9 @@ class AppMenu extends React.Component<IAppMenuProps, {}> {
         <Menu.Item
           className="AppMenu__Item--right AppMenu__Item--callToAction"
           key="3"
+          onClick={login}
         >
-          <span className="AppMenu__Item--clickable" onClick={login}>
-            Log In / Create an account
-          </span>
+          Log In / Create an account
         </Menu.Item>
       </Menu>
     );
@@ -55,8 +54,8 @@ class AppMenu extends React.Component<IAppMenuProps, {}> {
           <Link to="/">Home</Link>
         </Menu.Item>
         <Menu.Item key="2">
-        <Link to="/dashboard">Dashboard</Link>
-      </Menu.Item>
+          <Link to="/dashboard">Dashboard</Link>
+        </Menu.Item>
         {this.renderDropDownMenu()}
       </Menu>
     );
@@ -65,7 +64,14 @@ class AppMenu extends React.Component<IAppMenuProps, {}> {
   private renderDropDownMenu(): JSX.Element {
     const { logout } = this.props.auth;
     return (
-      <SubMenu className="AppMenu__Item--right" title={<span className=""><Icon type="user" /> Yasser Shaikh</span>}>
+      <SubMenu
+        className="AppMenu__Item--right"
+        title={
+          <span className="">
+            <Icon type="user" /> Yasser Shaikh
+          </span>
+        }
+      >
         <Menu.Item key="setting:1">
           <Link to="/profile">Profile</Link>
         </Menu.Item>
