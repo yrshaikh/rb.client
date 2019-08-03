@@ -1,8 +1,10 @@
-import { Menu } from "antd";
+import {Icon, Menu} from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 import Auth from "../Authentication/Auth";
 import "./AppMenu.scss";
+
+const { SubMenu } = Menu;
 
 interface IAppMenuProps {
   auth: Auth;
@@ -42,7 +44,6 @@ class AppMenu extends React.Component<IAppMenuProps, {}> {
     );
   }
   private renderAuthenticatedNavBar(): JSX.Element {
-    const { logout } = this.props.auth;
     return (
       <Menu
         className="AppMenu"
@@ -53,18 +54,22 @@ class AppMenu extends React.Component<IAppMenuProps, {}> {
         <Menu.Item key="1">
           <Link to="/">Home</Link>
         </Menu.Item>
-        <Menu.Item key="2">
+        {this.renderDropDownMenu()}
+      </Menu>
+    );
+  }
+
+  private renderDropDownMenu(): JSX.Element {
+    const { logout } = this.props.auth;
+    return (
+      <SubMenu className="AppMenu__Item--right" title={<span className=""><Icon type="user" /> Yasser Shaikh</span>}>
+        <Menu.Item key="setting:1">
           <Link to="/profile">Profile</Link>
         </Menu.Item>
-        <Menu.Item
-          className="AppMenu__Item--right AppMenu__Item--callToAction"
-          key="3"
-        >
-          <span className="AppMenu__Item--clickable" onClick={logout}>
-            Log Out
-          </span>
+        <Menu.Item key="setting:2" onClick={logout}>
+          Log Out
         </Menu.Item>
-      </Menu>
+      </SubMenu>
     );
   }
 }
