@@ -23,30 +23,42 @@ interface IAppProps {
 }
 
 class App extends React.Component<IAppProps, {}> {
+  private readonly auth: Auth;
   constructor(props: IAppProps) {
     super(props);
-    Auth.init(this.props.history as History);
+    this.auth = new Auth(this.props.history as History);
   }
-  public render() {
-    const CommonHeader = (
+  public render(): JSX.Element {
+    const CommonHeader: JSX.Element = (
       <Header className="AppLayout__Header">
         <div className="AppLayout__Logo" />
-        <AppMenu isAuthenticated={Auth.isAuthenticated()} />
+        <AppMenu auth={this.auth} />
       </Header>
     );
-
     return (
       <Layout className="AppLayout">
         {CommonHeader}
         <Content className="AppLayout__Content">
           <Switch>
-            <Route exact path="/" render={() => <Home />} />
-            <Route path="/features" render={() => <Features />} />
-            <Route path="/profile" render={() => <Profile />} />
-            <Route path="/pagenotfound" render={() => <PageNotFound />} />
+            <Route
+              exact
+              path="/"
+              render={(): JSX.Element => <Home auth={this.auth} />}
+            />
+            <Route path="/features" render={(): JSX.Element => <Features />} />
+            <Route
+              path="/profile"
+              render={(): JSX.Element => <Profile auth={this.auth} />}
+            />
+            <Route
+              path="/pagenotfound"
+              render={(): JSX.Element => <PageNotFound />}
+            />
             <Route
               path="/callback"
-              render={() => <Callback urlHash={this.props.location.hash} />}
+              render={(): JSX.Element => (
+                <Callback urlHash={this.props.location.hash} auth={this.auth} />
+              )}
             />
             <Redirect from="/**" to="/pagenotfound" />
           </Switch>

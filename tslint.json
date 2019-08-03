@@ -14,12 +14,22 @@
       }
     ],
     "no-implicit-dependencies": [true, "dev"],
-    "no-any": true,
     "trailing-comma": false,
     "no-empty-interface": false,
     "no-internal-module": false,
     "no-namespace": false,
-    "arrow-parens": false
+    "arrow-parens": false,
+    "typedef": [
+      true,
+      "call-signature",
+      "arrow-call-signature",
+      "parameter",
+      "arrow-parameter",
+      "property-declaration",
+      "variable-declaration",
+      "member-variable-declaration",
+      "array-destructuring"
+    ]
   },
   "rulesDirectory": []
 }
