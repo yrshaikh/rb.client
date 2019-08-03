@@ -40,16 +40,25 @@ class App extends React.Component<IAppProps, {}> {
         {CommonHeader}
         <Content className="AppLayout__Content">
           <Switch>
-            <Route exact path="/" render={(): JSX.Element => <Home />} />
+            <Route
+              exact
+              path="/"
+              render={(): JSX.Element => <Home auth={this.auth} />}
+            />
             <Route path="/features" render={(): JSX.Element => <Features />} />
             <Route
               path="/profile"
               render={(): JSX.Element => <Profile auth={this.auth} />}
             />
-            <Route path="/pagenotfound" render={(): JSX.Element => <PageNotFound />} />
+            <Route
+              path="/pagenotfound"
+              render={(): JSX.Element => <PageNotFound />}
+            />
             <Route
               path="/callback"
-              render={(): JSX.Element => <Callback urlHash={this.props.location.hash} auth={this.auth} />}
+              render={(): JSX.Element => (
+                <Callback urlHash={this.props.location.hash} auth={this.auth} />
+              )}
             />
             <Redirect from="/**" to="/pagenotfound" />
           </Switch>
