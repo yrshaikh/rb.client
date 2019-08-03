@@ -2,6 +2,7 @@
 
 .ant-layout-header {
   background: $navigation-bar-color;
+  height: auto !important;
   .ant-menu-dark {
     background: $navigation-bar-color;
     font-size: 16px;
