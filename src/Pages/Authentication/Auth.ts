@@ -8,6 +8,7 @@ export default class Auth {
   public constructor(history: History) {
     this.historyField = history;
     Auth.authField = new auth0.WebAuth({
+      audience: "https://localhost:5001",
       clientID: process.env.REACT_APP_AUTH0_CLIENT_ID as string,
       domain: process.env.REACT_APP_AUTH0_DOMAIN as string,
       redirectUri: process.env.REACT_APP_AUTH0_CALLBACK_URL,
@@ -64,19 +65,19 @@ export default class Auth {
     localStorage.setItem("expires_at", expiresAt);
   }
 
-  public getAccessToken(): string {
-    const accessToken: any = localStorage.getItem("access_token");
-    if (!accessToken) {
-      throw new Error("No access token found.");
+  public getToken(): string {
+    const token: any = localStorage.getItem("access_token");
+    if (!token) {
+      throw new Error("No token found.");
     }
-    return accessToken;
+    return token;
   }
   public getProfile(callback: any): void {
     if (this.userProfile) {
       return callback(null, this.userProfile);
     }
     Auth.authField.client.userInfo(
-      this.getAccessToken(),
+      this.getToken(),
       (err: any, profile: any) => {
         if (profile) {
           this.userProfile = profile;

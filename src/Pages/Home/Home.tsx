@@ -28,6 +28,12 @@ class Home extends React.Component<IProps, IState> {
     this.homeApi.GetPublicMessage().then((response: any) => {
       this.setState({ publicMessage: response });
     });
+
+    if (!this.props.auth.isAuthenticated()) { return; }
+    const accessToken: string = this.props.auth.getToken();
+    this.homeApi.GetPrivateMessage(accessToken).then((response: any) => {
+      this.setState({ privateMessage: response });
+    });
   }
 
   public render(): JSX.Element {
