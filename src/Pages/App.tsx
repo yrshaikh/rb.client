@@ -7,6 +7,7 @@ import AppMenu from "./AppMenu/AppMenu";
 import Auth from "./Authentication/Auth";
 import Callback from "./Authentication/Callback";
 import PageNotFound from "./Common/PageNotFound/PageNotFound";
+import Dashboard from "./Dashboard/Dashboard";
 import Features from "./Features/Features";
 // components to be routed
 import Home from "./Home/Home";
@@ -49,6 +50,10 @@ class App extends React.Component<IAppProps, {}> {
             <Route
               path="/profile"
               render={(): JSX.Element => <Profile auth={this.auth} />}
+            />
+            <Route
+              path="/dashboard"
+              render={(): JSX.Element => <Dashboard />}
             />
             <Route
               path="/pagenotfound"
