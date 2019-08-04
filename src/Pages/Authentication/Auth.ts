@@ -8,7 +8,7 @@ export default class Auth {
   public constructor(history: History) {
     this.historyField = history;
     Auth.authField = new auth0.WebAuth({
-      audience: "https://localhost:5001",
+      audience: process.env.REACT_APP_AUTH0_AUDIENCE as string,
       clientID: process.env.REACT_APP_AUTH0_CLIENT_ID as string,
       domain: process.env.REACT_APP_AUTH0_DOMAIN as string,
       redirectUri: process.env.REACT_APP_AUTH0_CALLBACK_URL,
