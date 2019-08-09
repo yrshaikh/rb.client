@@ -1,0 +1,11 @@
+.ResumePage {
+    &__Header {
+        display: block;
+        height: 50px;
+        &__Name {
+            font-size: 18px;
+        }
+        &__Actions {
+        }
+    }
+}
