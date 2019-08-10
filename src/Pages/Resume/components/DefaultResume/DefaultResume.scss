@@ -7,9 +7,11 @@ h1 {
   font-family: $font-bold;
   text-transform: lowercase;
   border-bottom: 2px solid;
+  color: #000;
 }
 
 .DefaultResume {
+  border: 1px solid #dedede;
   background-color: #fff;
   padding: 50px;
   display: block;
@@ -30,6 +32,7 @@ h1 {
     &__Designation {
       font-family: $font-bold;
       bottom: 0;
+      color: #000;
     }
     &__Contacts {
       ul {
@@ -81,6 +84,7 @@ h1 {
     &__Company {
       font-size: 18px;
       font-family: $font-bold;
+      margin-bottom: 5px;
     }
     &__Duration {
       color: $gray-color;
@@ -95,6 +99,7 @@ h1 {
     &__JobTitle {
       font-size: 18px;
       font-family: $font-light;
+      margin-bottom: 5px;
     }
     &__Summary {
       color: $gray-color;

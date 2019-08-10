@@ -1,4 +1,4 @@
-import { Button, Dropdown, Icon, Menu } from "antd";
+import { Button, Col, Dropdown, Icon, Menu, Row } from "antd";
 import React, { Component } from "react";
 import DefaultResume from "./components/DefaultResume/DefaultResume";
 import { IResumePageProps } from "./types/IResumePageProps";
@@ -22,7 +22,7 @@ export default class ResumePage extends Component<
   public async getResumeInfo(): Promise<void> {
     const education: IResumeEducation[] = [
       {
-        degreeName: "Bachelors in Computer Egineering",
+        degreeName: "Bachelors in Computer Engineering",
         from: new Date(),
         fromStr: "2010",
         to: new Date(),
@@ -75,8 +75,7 @@ export default class ResumePage extends Component<
         fromStr: "2010",
         jobTitle: "Software Engineer",
         location: "Mumbai, India",
-        summary:
-          "ASP.NET MVC design & development.",
+        summary: "ASP.NET MVC design & development.",
         to: new Date(),
         toStr: "2012"
       }
@@ -110,36 +109,52 @@ export default class ResumePage extends Component<
     }
     return (
       <div className="ResumePage">
-        {this.renderResumePageHeader()}
-        {this.renderResume()}
+        <Row>
+          <Col span={4}>
+            <div className="ResumePage__Sidebar">
+              {this.renderResumeName()}
+              {this.renderResumeActions()}
+            </div>
+          </Col>
+          <Col span={20}>{this.renderResume()}</Col>
+        </Row>
       </div>
     );
   }
 
-  private getMenuOptions(): any {
+  private renderResumeName(): JSX.Element {
     return (
-      <Menu>
-        <Menu.Item key="1">Edit</Menu.Item>
-        <Menu.Item key="2">Download</Menu.Item>
-        <Menu.Item key="3">Rename</Menu.Item>
-        <Menu.Item key="4">Delete</Menu.Item>
-      </Menu>
+      <div className="ResumePage__Sidebar__Name">
+        <div className="ResumePage__Sidebar__Name__Title">Untitiled Resume #1</div>
+        <div className="ResumePage__Sidebar__Name__UpdatedDate">updated: 22nd April 2019</div>
+      </div>
     );
   }
 
-  private renderResumePageHeader(): JSX.Element {
+  private renderResumeActions(): JSX.Element {
     return (
-      <div className="ResumePage__Header">
-        <div className="ResumePage__Header__Name pull-left">
-          Untitled Resume #1
-        </div>
-        <div className="ResumePage__Header__Actions pull-right">
-          <Dropdown overlay={this.getMenuOptions}>
-            <Button>
-              Settings <Icon type="down" />
-            </Button>
-          </Dropdown>
-        </div>
+      <div className="ResumePage__Sidebar__Actions">
+        <Button type="primary" icon="download" size="large">
+          Download as PDF
+        </Button>
+        <Button type="default" icon="idcard" size="large">
+          Personal Details
+        </Button>
+        <Button type="default" icon="profile" size="large">
+          About Me
+        </Button>
+        <Button type="default" icon="book" size="large">
+          Education
+        </Button>
+        <Button type="default" icon="project" size="large">
+          Experience
+        </Button>
+        <Button type="default" icon="tags" size="large">
+          Skills
+        </Button>
+        <Button type="default" icon="plus" size="large">
+          Add More
+        </Button>
       </div>
     );
   }
