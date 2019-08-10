@@ -12,6 +12,7 @@ import Features from "./Features/Features";
 // components to be routed
 import Home from "./Home/Home";
 import Profile from "./Profile/Profile";
+import ResumePage from "./Resume/ResumePage";
 
 const { Header, Content } = Layout;
 
@@ -63,6 +64,12 @@ class App extends React.Component<IAppProps, {}> {
               path="/callback"
               render={(): JSX.Element => (
                 <Callback urlHash={this.props.location.hash} auth={this.auth} />
+              )}
+            />
+            <Route
+              path="/resume/edit"
+              render={(): JSX.Element => (
+                <ResumePage />
               )}
             />
             <Redirect from="/**" to="/pagenotfound" />

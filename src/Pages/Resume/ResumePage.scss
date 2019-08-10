@@ -1,0 +1,24 @@
+@import "./../Variables.scss";
+.ResumePage {
+  margin-top: 15px;
+  &__Sidebar {
+    &__Name {
+      margin-bottom: 15px;
+      &__Title {
+        font-family: $font-light;
+      }
+      &__UpdatedDate {
+        color: #888;
+        font-size: 12px;
+      }
+    }
+    &__Actions {
+      margin-right: 25px;
+      .ant-btn {
+        margin-bottom: 10px;
+        width: 100%;
+        text-align: left;
+      }
+    }
+  }
+}

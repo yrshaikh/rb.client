@@ -1,0 +1,108 @@
+@import "./../../../Variables.scss";
+
+$light-gray-color: #e5e5e5;
+$gray-color: #828282;
+h1 {
+  font-size: 30px;
+  font-family: $font-bold;
+  text-transform: lowercase;
+  border-bottom: 2px solid;
+  color: #000;
+}
+
+.DefaultResume {
+  border: 1px solid #dedede;
+  background-color: #fff;
+  padding: 50px;
+  display: block;
+  &__Profile {
+    border-bottom: 2px solid $light-gray-color;
+    margin-bottom: 50px;
+    .ant-col {
+      height: 135px;
+    }
+    &__Name {
+      font-size: 60px;
+      font-family: $font-bold;
+      line-height: 60px;
+      text-transform: none;
+      text-decoration: none;
+      border: none;
+    }
+    &__Designation {
+      font-family: $font-bold;
+      bottom: 0;
+      color: #000;
+    }
+    &__Contacts {
+      ul {
+        bottom: 0;
+        li {
+          list-style: none;
+          line-height: 25px;
+          font-family: $font-light;
+          i {
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+  }
+  &__About {
+    margin-right: 80px;
+    &__Summary {
+      color: $gray-color;
+      text-align: justify;
+    }
+  }
+  &__Education {
+    margin-right: 80px;
+    margin-bottom: 20px;
+    &__Item {
+      &__Year {
+        color: $gray-color;
+      }
+      &__University {
+        font-size: 18px;
+        font-family: $font-bold;
+        margin-bottom: 0;
+      }
+      &__Degree {
+        color: $gray-color;
+      }
+    }
+  }
+  &__Skills {
+    margin-right: 80px;
+    margin-bottom: 20px;
+    &__Item {
+      margin-right: 3px;
+    }
+  }
+
+  &__Experiences {
+    &__Company {
+      font-size: 18px;
+      font-family: $font-bold;
+      margin-bottom: 5px;
+    }
+    &__Duration {
+      color: $gray-color;
+    }
+    &__Location {
+      color: $gray-color;
+    }
+    &__Line {
+      left: -25px;
+      top: 6px;
+    }
+    &__JobTitle {
+      font-size: 18px;
+      font-family: $font-light;
+      margin-bottom: 5px;
+    }
+    &__Summary {
+      color: $gray-color;
+    }
+  }
+}
