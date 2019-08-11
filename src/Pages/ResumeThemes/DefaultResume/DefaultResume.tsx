@@ -1,15 +1,15 @@
 import { Col, Icon, Row } from "antd";
 import * as _ from "lodash";
 import React, { Component } from "react";
-import { IResumeBuilder } from "../../IResumeBuilder";
-import { IResumeProps } from "../../types/IResumeProps";
+import { IResumeBuilder } from "../../Resume/types/IResumeBuilder";
+import { IResumeProps } from "../../Resume/types/IResumeProps";
 import {
   IResumeAbout,
   IResumeEducation,
   IResumeProfile,
   IResumeSkill,
   IResumeWorkExperience
-} from "../../types/IResumeTypes";
+} from "../../Resume/types/IResumeTypes";
 
 import "./DefaultResume.scss";
 
@@ -49,10 +49,11 @@ export default class DefaultResume extends Component<IResumeProps, {}>
 
   public buildEducationSection(data: IResumeEducation[]): JSX.Element {
     const baseClass: string = "DefaultResume__Education";
+    let key: number = 0;
     const educationList: JSX.Element[] = [];
     _.forEach(data, (education: IResumeEducation) => {
       educationList.push(
-        <div className={`${baseClass}__Item`}>
+        <div className={`${baseClass}__Item`} key={key}>
           <div className={`${baseClass}__Item__Year`}>
             {education.fromStr} - {education.toStr}
           </div>
@@ -64,6 +65,7 @@ export default class DefaultResume extends Component<IResumeProps, {}>
           </div>
         </div>
       );
+      key++;
     });
     return (
       <div className={baseClass}>
@@ -115,10 +117,14 @@ export default class DefaultResume extends Component<IResumeProps, {}>
 
   public buildSkillSection(data: IResumeSkill): JSX.Element {
     const skillList: JSX.Element[] = [];
+    let key: number = 0;
     _.forEach(data.skills, (skill: string) => {
       skillList.push(
-        <span className="DefaultResume__Skills__Item">{skill},</span>
+        <span key={key} className="DefaultResume__Skills__Item">
+          {skill},
+        </span>
       );
+      key++;
     });
     return (
       <div className="DefaultResume__Skills">
@@ -132,23 +138,36 @@ export default class DefaultResume extends Component<IResumeProps, {}>
     data: IResumeWorkExperience[]
   ): JSX.Element {
     const experienceList: JSX.Element[] = [];
+    let key: number = 0;
     _.forEach(data, (experience: IResumeWorkExperience) => {
       experienceList.push(
-        <Row>
+        <Row key={key}>
           <Col span={12}>
-            <div className="DefaultResume__Experiences__Company">{experience.companyName}</div>
+            <div className="DefaultResume__Experiences__Company">
+              {experience.companyName}
+            </div>
             <div className="DefaultResume__Experiences__Duration">
               {experience.fromStr} to {experience.toStr}
             </div>
-            <div className="DefaultResume__Experiences__Location">{experience.location}</div>
+            <div className="DefaultResume__Experiences__Location">
+              {experience.location}
+            </div>
           </Col>
           <Col span={12} className="pos-rel">
-            <Icon type="line" className="DefaultResume__Experiences__Line pos-abs" />
-            <div className="DefaultResume__Experiences__JobTitle">{experience.jobTitle}</div>
-            <p className="DefaultResume__Experiences__Summary">{experience.summary}</p>
+            <Icon
+              type="line"
+              className="DefaultResume__Experiences__Line pos-abs"
+            />
+            <div className="DefaultResume__Experiences__JobTitle">
+              {experience.jobTitle}
+            </div>
+            <p className="DefaultResume__Experiences__Summary">
+              {experience.summary}
+            </p>
           </Col>
         </Row>
       );
+      key++;
     });
     return (
       <div className="DefaultResume__Experiences">

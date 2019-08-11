@@ -1,0 +1,11 @@
+@import "./../../../Variables.scss";
+.ResumePageInfo {
+  margin-bottom: 15px;
+  &__Title {
+    font-family: $font-light;
+  }
+  &__UpdatedDate {
+    color: #888;
+    font-size: 12px;
+  }
+}

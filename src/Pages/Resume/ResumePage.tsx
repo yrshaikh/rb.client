@@ -1,105 +1,30 @@
-import { Button, Col, Dropdown, Icon, Menu, Row } from "antd";
+import { Col, Row } from "antd";
 import React, { Component } from "react";
-import DefaultResume from "./components/DefaultResume/DefaultResume";
+import DefaultResume from "../ResumeThemes/DefaultResume/DefaultResume";
+import ResumePageActions from "./components/ResumePageActions/ResumePageActions";
+import ResumePageDrawer from "./components/ResumePageDrawer/ResumePageDrawer";
+import ResumePageInfo from "./components/ResumePageInfo/ResumePageInfo";
 import { IResumePageProps } from "./types/IResumePageProps";
 import { IResumePageState } from "./types/IResumePageState";
-import {
-  IResumeEducation,
-  IResumeSkill,
-  IResumeWorkExperience
-} from "./types/IResumeTypes";
+import { IResumeProps } from "./types/IResumeProps";
 
+import ResumeService from "./../../Services/ResumeService";
 import "./ResumePage.scss";
 
 export default class ResumePage extends Component<
   IResumePageProps,
   IResumePageState
 > {
-  public async componentDidMount(): Promise<void> {
-    await this.getResumeInfo();
+  private resumeService: ResumeService;
+  constructor(props: IResumePageProps) {
+    super(props);
+    this.resumeService = new ResumeService();
   }
 
-  public async getResumeInfo(): Promise<void> {
-    const education: IResumeEducation[] = [
-      {
-        degreeName: "Bachelors in Computer Engineering",
-        from: new Date(),
-        fromStr: "2010",
-        to: new Date(),
-        toStr: "2005",
-        universityName: "University Of Mumbai"
-      }
-    ];
-
-    const skills: IResumeSkill = {
-      skills: [
-        "c#",
-        "asp.net core",
-        "asp.net mvc",
-        "sql",
-        "node js",
-        "react js",
-        "angular js",
-        "typescript",
-        "mongodb",
-        "scss"
-      ]
-    };
-
-    const workExperiences: IResumeWorkExperience[] = [
-      {
-        companyName: "Agoda.com",
-        from: new Date(),
-        fromStr: "2017",
-        jobTitle: "Senior Software Engineer",
-        location: "Bangkok, Thailand",
-        summary:
-          "Scrum Master, C#, ASP.NET Core, ASP.NET MVC, SQL, Node JS, React JS, TypeScript, SCSS, Hive, Hadoop, GraphQL, RabbitMQ, Chrome Puppeteer, Kafka",
-        to: new Date(),
-        toStr: "Present"
-      },
-      {
-        companyName: "Media.net - A Directi group company",
-        from: new Date(),
-        fromStr: "2012",
-        jobTitle: "Senior Web Developer",
-        location: "Mumbai, India",
-        summary:
-          "Web development using ASP.NET MVC, SQL and JavaScript frameworks like AngularJs and BackboneJs. API development using Node JS, Redis, RabbitMq and Java.",
-        to: new Date(),
-        toStr: "2017"
-      },
-      {
-        companyName: "Kalpavruksh Technologies",
-        from: new Date(),
-        fromStr: "2010",
-        jobTitle: "Software Engineer",
-        location: "Mumbai, India",
-        summary: "ASP.NET MVC design & development.",
-        to: new Date(),
-        toStr: "2012"
-      }
-    ];
-
+  public async componentDidMount(): Promise<void> {
+    const resumeInfo: IResumeProps = await this.resumeService.getResumeInfo();
     this.setState({
-      resume: {
-        about: {
-          summary:
-            // tslint:disable-next-line:max-line-length
-            "Passionate full stack engineer with over 9 years of work experience in designing, developing and delivering scaleable projects. Currently I am working with agoda.com at their Bangkok office where I am a part of the front end department responsible for adding & enhancing features to agoda.com website."
-        },
-        education,
-        profile: {
-          designation: "Senior Software Engineer",
-          email: "yrshaikh.mail@gmail.com",
-          firstName: "Yasser",
-          lastName: "Shaikh",
-          linkedinUrl: "yrshaikh",
-          websiteUrl: "http://yassershaikh.com/"
-        },
-        skills,
-        workExperiences
-      }
+      resume: resumeInfo
     });
   }
 
@@ -112,49 +37,13 @@ export default class ResumePage extends Component<
         <Row>
           <Col span={4}>
             <div className="ResumePage__Sidebar">
-              {this.renderResumeName()}
-              {this.renderResumeActions()}
+              <ResumePageInfo />
+              <ResumePageActions handleAction={this.handleAction} />
             </div>
           </Col>
           <Col span={20}>{this.renderResume()}</Col>
         </Row>
-      </div>
-    );
-  }
-
-  private renderResumeName(): JSX.Element {
-    return (
-      <div className="ResumePage__Sidebar__Name">
-        <div className="ResumePage__Sidebar__Name__Title">Untitiled Resume #1</div>
-        <div className="ResumePage__Sidebar__Name__UpdatedDate">updated: 22nd April 2019</div>
-      </div>
-    );
-  }
-
-  private renderResumeActions(): JSX.Element {
-    return (
-      <div className="ResumePage__Sidebar__Actions">
-        <Button type="primary" icon="download" size="large">
-          Download as PDF
-        </Button>
-        <Button type="default" icon="idcard" size="large">
-          Personal Details
-        </Button>
-        <Button type="default" icon="profile" size="large">
-          About Me
-        </Button>
-        <Button type="default" icon="book" size="large">
-          Education
-        </Button>
-        <Button type="default" icon="project" size="large">
-          Experience
-        </Button>
-        <Button type="default" icon="tags" size="large">
-          Skills
-        </Button>
-        <Button type="default" icon="plus" size="large">
-          Add More
-        </Button>
+        <ResumePageDrawer />
       </div>
     );
   }
@@ -169,5 +58,9 @@ export default class ResumePage extends Component<
         skills={this.state.resume.skills}
       />
     );
+  }
+
+  private handleAction(): any {
+    alert("hahaha");
   }
 }
