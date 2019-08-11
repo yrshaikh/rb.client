@@ -11,16 +11,13 @@ interface IResumePageActionButtons {
   type: ResumeSections;
 }
 
-interface IResumePageActionsProps {
-  handleAction: () => void;
+interface IProps {
+  handleAction: (type: ResumeSections, displayText: string) => void;
 }
 
-export default class ResumePageActions extends Component<
-  IResumePageActionsProps,
-  {}
-> {
+export default class ResumePageActions extends Component<IProps, {}> {
   private readonly buttons: IResumePageActionButtons[];
-  constructor(props: IResumePageActionsProps) {
+  constructor(props: IProps) {
     super(props);
     this.buttons = [];
     this.buttons.push({
@@ -68,7 +65,7 @@ export default class ResumePageActions extends Component<
           type="default"
           icon={button.icon}
           size="default"
-          onClick={() => this.props.handleAction}
+          onClick={() => this.actionButtonClicked(button)}
           key={key}
         >
           {button.displayText}
@@ -77,5 +74,9 @@ export default class ResumePageActions extends Component<
       key++;
     });
     return buttons;
+  }
+
+  private actionButtonClicked(button: IResumePageActionButtons): any {
+    this.props.handleAction(button.type, button.displayText);
   }
 }

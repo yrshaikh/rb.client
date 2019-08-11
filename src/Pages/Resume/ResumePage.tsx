@@ -4,12 +4,14 @@ import DefaultResume from "../ResumeThemes/DefaultResume/DefaultResume";
 import ResumePageActions from "./components/ResumePageActions/ResumePageActions";
 import ResumePageDrawer from "./components/ResumePageDrawer/ResumePageDrawer";
 import ResumePageInfo from "./components/ResumePageInfo/ResumePageInfo";
+import { IResumePageDrawerProps } from "./types/IResumePageDrawerProps";
 import { IResumePageProps } from "./types/IResumePageProps";
 import { IResumePageState } from "./types/IResumePageState";
 import { IResumeProps } from "./types/IResumeProps";
 
 import ResumeService from "./../../Services/ResumeService";
 import "./ResumePage.scss";
+import { ResumeSections } from "./types/ResumeSections";
 
 export default class ResumePage extends Component<
   IResumePageProps,
@@ -19,6 +21,8 @@ export default class ResumePage extends Component<
   constructor(props: IResumePageProps) {
     super(props);
     this.resumeService = new ResumeService();
+    this.handleAction = this.handleAction.bind(this);
+    this.handleDrawerClose = this.handleDrawerClose.bind(this);
   }
 
   public async componentDidMount(): Promise<void> {
@@ -43,7 +47,7 @@ export default class ResumePage extends Component<
           </Col>
           <Col span={20}>{this.renderResume()}</Col>
         </Row>
-        <ResumePageDrawer />
+        <ResumePageDrawer {...this.state.drawerState} />
       </div>
     );
   }
@@ -60,7 +64,25 @@ export default class ResumePage extends Component<
     );
   }
 
-  private handleAction(): any {
-    alert("hahaha");
+  private handleAction(type: ResumeSections, displayText: string): any {
+    this.setState({
+      drawerState: {
+        onClose: this.handleDrawerClose,
+        title: displayText,
+        type,
+        visible: true
+      }
+    });
+  }
+
+  private handleDrawerClose(): any {
+    const drawerState: IResumePageDrawerProps = Object.assign(
+      {},
+      this.state.drawerState
+    );
+    drawerState.visible = false;
+    this.setState({
+      drawerState
+    });
   }
 }
