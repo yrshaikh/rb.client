@@ -4,7 +4,7 @@ import {
   IResumeProfile,
   IResumeSkill,
   IResumeWorkExperience
-} from "./types/IResumeTypes";
+} from "./IResumeTypes";
 
 export interface IResumeBuilder {
   buildProfileSection(data: IResumeProfile): JSX.Element;
